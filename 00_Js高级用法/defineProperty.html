@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<head>
+
+</head>
+
+<body>
+    <script>
+        let personAge = 18
+        let person = {
+            name: "张三",
+            sex: "男",
+            //不能跟随personAge进行动态变化
+            //age:personAge
+        }
+
+        Object.defineProperty(person, 'age', {
+            // value:18,
+            // enumerable:true,    //控制属性是否可以被枚举（遍历key），默认为false
+            // writable:true,      //控制属性是否可以被修改，默认为false
+            // configurable:true,  //控制属性是否可以被删除，默认为false
+
+            get() {
+                console.log("读取age属性")
+                return personAge
+            },
+
+            set(value) {
+                console.log("写入age属性")
+                personAge = value
+            }
+        })
+
+        //通过Object.defineProperty增加的age属性，在未开启enumerable时不能被遍历到
+        for (let key in person) {
+            console.log("person key = " + key)
+        }
+
+        function Student(){
+            this.name = "Jack"
+            this.age = 18
+        }
+
+        console.log(new Student())
+
+        Student.school = "清华大学"
+        Student.study = function(){
+            
+        }
+
+        console.log("Jack school = "+new Student().school)
+        console.log("Student school = "+Student.school)
+    </script>
+</body>

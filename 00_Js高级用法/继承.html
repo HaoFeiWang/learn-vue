@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <h1>继承</h1>
+    <script type="text/javascript">
+        //原型链继承
+        function Animal(){
+            this.eat = function(){
+                console.log("eat",this)
+            }
+        }
+
+        function Dog(){
+
+        }
+
+        Dog.prototype = new Animal()
+        let dog = new Dog()
+        console.log("dog", dog)
+        dog.eat()
+
+
+        //构造函数继承
+        //构造函数继承可以继承到父类上的属性和方法，但是继承不到父类原型上的属性和方法
+        function Book(){
+            this.read = function(){
+                console.log("read",this)
+            }
+        }
+
+        function Math(){
+            Book.call(this);
+        }
+        let firstGrade = new Math()
+        console.log("firstGrade",firstGrade)
+        firstGrade.read()
+
+
+        //extends关键字继承
+        class Person {
+            constructor(age, name) {
+                this.age = age
+                this.name = name
+            }
+
+            eat() {
+                console.log("call eat", this)
+            }
+        }
+
+        class Student extends Person {
+            study() {
+                console.log("call study", this)
+            }
+        }
+
+        var jack = new Student(18, "jack")
+        console.log("craete Student", jack)
+        jack.eat()
+        jack.study()
+
+    </script>
+</body>
+
+</html>

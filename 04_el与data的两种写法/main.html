@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h3>{{title}}</h3>
+    </div>
+
+    <script>
+        const v = new Vue({
+            //el的第一种写法
+            //el:"#root",
+
+            //data的第一种写法，对象式
+            data: {
+                title: "el与data的两种写法"
+            },
+
+            //data的第二种写法，函数式
+            //此处的this是Vue，所以不能采用箭头函数，因为箭头函数this指向的是window
+            // data:function() {
+            //     console.log("data function this",this)
+            //     return {
+            //         title: "el与data的两种写法"
+            //     }
+            // }
+
+            //data第二种写法的简写，省略冒号和function
+            // data() {
+            //     console.log("data function this",this)
+            //     return {
+            //         title: "el与data的两种写法"
+            //     }
+            // }
+        })
+        //console.log(v)
+
+        //el的第二种写法，动态挂载
+        v.$mount("#root");
+    </script>
+</body>
+
+</html>

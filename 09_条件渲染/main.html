@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <button @click="addValue">增加Number</button>
+        <!-- v-if 是条件渲染，Dom节点中不会存在不符合条件的 -->
+        <h1 v-if="number === 1">v-if测试</h1>
+        <!-- v-if 是条件显示，Dom节点中始终存在，只是通过display属性进行隐藏 -->
+        <h1 v-show="number === 1">v-show测试</h1>
+
+        <!-- if else-if else，中间不能被其他标签打断-->
+        <h1 v-if="number === 1">v-if number === 1</h1>
+        <h1 v-else-if="number === 2">v-else-if number === 2</h1>
+        <h1 v-else>v-else</h1>
+
+        <!-- template 配合 v-if 使用可以控制多个元素，并且不会增加额外的Dom节点 -->
+        <template v-if="number === 5">
+            <h2>template1</h2>
+            <h2>template2</h2>
+            <h2>template3</h2>
+        </template>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#root',
+            data: {
+                number: 0
+            },
+            methods: {
+                addValue() {
+                    this.number++
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

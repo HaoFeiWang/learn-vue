@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>今天天气很{{info}}</h2>
+        <button @click="changeWeather">改变天气</button>
+
+        <h2>a的值是{{numbers.a}}</h2>
+        <button @click="changeA">改变A</button>
+
+        <h2>b的值是{{numbers.b}}</h2>
+        <button @click="changeB">改变B</button>
+
+        <h2>年龄是{{age}}</h2>
+        <button @click="changeAge">延时修改</button>
+    </div>
+
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                isHot: true,
+                numbers: {
+                    a: 0,
+                    b: 0
+                },
+                age: 0
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '寒冷'
+                }
+            },
+            methods: {
+                changeWeather() {
+                    this.isHot = !this.isHot
+                },
+                changeA() {
+                    this.numbers.a++
+                },
+                changeB() {
+                    this.numbers.b++
+                },
+                changeAge() {
+                    this.age++;
+                }
+            },
+            //静态监听
+            watch: {
+                //属性必须存在vm.data才可以监听
+                isHot: {
+                    //初始化时让handler调用一下
+                    immediate: true,
+                    //当isHot发生改变时，handler函数会调用
+                    handler(newValue, oldValue) {
+                        console.log('change hot', newValue, oldValue)
+                    }
+                },
+
+                //监听多级结构中某个属性的变化
+                'numbers.a': {
+                    handler(newValue, oldValue) {
+                        console.log('change A', newValue, oldValue)
+                    }
+                },
+
+                //监听多级结构中所有属性的变化
+                numbers: {
+                    //默认不监听多级结构
+                    deep: true,
+                    handler(newValue, oldValue) {
+                        console.log('change numbers', newValue, oldValue)
+                    }
+                },
+
+                //简写，不需要任何配置属性时可以简写
+                // isHot(newValue, oldValue) {
+                //     console.log('change numbers', newValue, oldValue)
+                // }
+
+                //计算属性无法实现异步操作，可以使用监听属性实现
+                age(oldAge, newAge) {
+                    console.log("change age", this)
+                    //异步回调的函数必须写成箭头函数
+                    //因为该函数时js引擎调用，如果是普通函数，则this指向window
+                    //如果是箭头函数，则没有this，向外查找，查找到监听属性中的this，也就是vue
+                    setTimeout(() => {
+                        console.log("delay change age", this)
+                    }, 3000);
+                }
+            }
+        })
+
+        //动态监听
+        // vm.$watch('isHot', {
+        //     //初始化时让handler调用一下
+        //     immediate: true,
+        //     //当isHot发生改变时，handler函数会调用
+        //     handler(newValue, oldValue) {
+        //         console.log('change hot', newValue, oldValue)
+        //     }
+        // })
+
+
+        //动态监听简写，不需要任何配置属性时可以简写
+        // vm.$watch('isHot', function (newValue, oldValue) {
+        //     console.log('change numbers', newValue, oldValue)
+        // })
+    </script>
+</body>
+
+</html>

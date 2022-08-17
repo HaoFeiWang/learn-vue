@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+
+        <!-- 
+            Vue 模板语法有两大类
+            插值语法：解析标签体
+            指令语法：解析标签属性、标签内容、绑定事件等等，形式均为 v-xxx，例如 v-bind
+        -->
+
+        <div id="root">
+            <!-- 插值语法 -->
+            <h1>{{title}}</h1>
+
+            <!-- 增加v-bind后，双引号中会解析为js表达式 -->
+            <a v-bind:href="url">点击跳转百度</a>
+            <br/>
+
+            <!-- :冒号为 v-bind 的简写 -->
+            <a :href="url">点击跳转百度</a>
+            <br/>
+
+            <!--解析js表达式-->
+            <a :href="url.toUpperCase()">点击跳转百度</a>
+            <br/>
+
+            <!--解析对象-->
+            <a :href="school.url">点击跳转百度</a>
+        </div>
+
+        <script>
+            new Vue({
+                el:"#root",
+                data:{
+                    title:"模板语法",
+                    url:"http://www.baidu.com",
+                    school:{
+                        url:"http://www.baidu.com"
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

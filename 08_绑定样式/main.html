@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+        .basic {
+            width: 300px;
+            height: 50px;
+            border-style: solid;
+            border-width: 5px;
+        }
+
+        .red_bg {
+            background-color: brown;
+        }
+
+        .blue_bg {
+            background-color: cornflowerblue;
+        }
+
+        .green_border {
+            border-color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 绑定class样式，字符串写法，样式类名不确定，需要动态指定-->
+        <div class="basic" :class="divStyle" @click="changeStyle">样式绑定</div>
+        <br /><br />
+
+        <!-- 绑定class样式，数组写法，样式个数不确定，名字也不确定-->
+        <div class="basic" :class="divStyleArray">样式绑定-数组</div>
+        <br /><br />
+
+        <!-- 绑定class样式，对象写法，样式个数确定，名字也确定，动态决定用不用-->
+        <div class="basic" :class="divStyleObj">样式绑定-对象</div>
+        <br /><br />
+
+        <!-- 绑定内联样式，对象写法-->
+        <div class="basic" :style="{fontSize:styleFontSize+'px'}">内联样式绑定-对象</div>
+        <br /><br />
+
+        <!-- 绑定内联样式，对象写法-->
+        <div class="basic" :style="innerStyleObj">内联样式绑定-对象</div>
+        <br /><br />
+
+        <!-- 绑定内联样式，数组写法-->
+        <div class="basic" :style="innerStyleArr">内联样式绑定-数组</div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#root',
+            data: {
+                isRedBg: true,
+                divStyle: 'red_bg',
+                divStyleArray: ['red_bg', 'green_border'],
+                divStyleObj: {
+                    blue_bg: true,
+                    green_border: true
+                },
+                styleFontSize: 20,
+                innerStyleObj: {
+                    fontSize: '20px'
+                },
+                innerStyleArr: [
+                    {
+                        backgroundColor: 'cornflowerblue'
+                    },
+                    {
+                        borderColor: 'aquamarine'
+                    }
+                ]
+            },
+            methods: {
+                changeStyle() {
+                    this.divStyle = this.isRedBg ? 'blue_bg' : 'red_bg'
+                    this.isRedBg = !this.isRedBg
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

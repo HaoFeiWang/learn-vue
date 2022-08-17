@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>人员列表（遍历列表）</h1>
+        <ul>
+            <li v-for="(person,index) in personArray">{{person.name}} - {{person.age}} - {{index}}</li>
+        </ul>
+
+        <h1>汽车信息（遍历对象）</h1>
+        <ul>
+            <li v-for="(value,key) in car">{{key}} - {{value}}</li>
+        </ul>
+
+
+        <h1>遍历字符串</h1>
+        <ul>
+            <li v-for="(char,index) in str">{{char}} - {{index}}</li>
+        </ul>
+
+        <h1>遍历指定次数</h1>
+        <ul>
+            <li v-for="(number,index) in 5">{{number}} - {{index}}</li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                personArray: [
+                    { name: "张三", age: 28 },
+                    { name: "李四", age: 21 },
+                    { name: "王五", age: 39 }
+                ],
+                car: {
+                    name: "奥迪A7",
+                    price: '70万',
+                    color: '黑色'
+                },
+                str: 'hello'
+            }
+        })  
+    </script>
+</body>
+
+</html>

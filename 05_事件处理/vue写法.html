@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+        .clickDiv {
+            background-color: cadetblue;
+            height: 50px;
+        }
+
+        * {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <button v-on:click="clickTip">点击提示</button>
+        <br />
+
+        <!-- v-on:click 简写-->
+        <button @click="clickTip">点击提示（简写）</button>
+        <br />
+
+        <!-- 点击事件传递指定参数，会丢失event参数 -->
+        <button @click="clickTip2('点击了按钮')">点击事件传递参数</button>
+        <br />
+
+        <!-- 使用 $event 占位，防止 event 参数丢失 -->
+        <button @click="clickTip3('点击了按钮',$event)">点击事件传递参数+event参数</button>
+        <br />
+
+        <!-- 事件修饰符：prevent（阻止默认事件） -->
+        <a href="http://www.baidu.com" @click.prevent="clickTip">prevent事件修饰符</a>
+
+        <!-- 事件修饰符：stop（阻止事件冒泡） -->
+        <div class="clickDiv" @click="clickDiv">
+            <button @click.stop="clickDivInner">stop事件修饰符</button>
+        </div>
+
+        <!-- 事件修饰符：once（只执行一次） -->
+        <button @click.once="clickTip">once事件修饰符</button>
+        <br />
+
+        <!-- 事件修饰符：capture（捕获方式） -->
+        <div class="clickDiv" @click.capture="clickDiv">
+            <button @click="clickDivInner">capture事件修饰符</button>
+        </div>
+
+        <!-- 事件修饰符：self（只有event.target为当前操作的元素才可以触发事件） -->
+        <!-- 点击button，事件冒泡到div，div的event.target为button -->
+        <div class="clickDiv" @click.self="clickDiv">
+            <button @click.self="clickDivInner">self事件修饰符</button>
+        </div>
+
+        <!-- 事件修饰符：passive（事件的默认行为立即执行，无需等待事件执行回调完毕） -->
+
+
+        <!-- 事件修饰符联合使用 -->
+        <div class="clickDiv" @click="clickDiv">
+            <a href="http://www.baidu.com" @click.prevent.stop="clickTip">prevent、stop事件修饰符联用</a>
+        </div>
+
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#root",
+            methods: {
+                //click事件默认会带一个 PointerEvent 的参数
+                clickTip: function (event) {
+                    //this为vue，不能使用箭头函数
+                    console.log(this)
+                    //点击事件的参数
+                    console.log(event)
+                    //执行点击事件的元素
+                    console.log(event.target)
+                    alert('点击了链接')
+                },
+
+                //点击事件参数传递
+                clickTip2(clickMsg) {
+                    console.log('clickMsg', clickMsg)
+                },
+
+                //点击事件参数传递+event参数
+                clickTip3(clickMsg, event) {
+                    console.log('clickMsg', clickMsg)
+                    console.log('event', event)
+                },
+
+                clickDiv() {
+                    console.log('click div')
+                },
+
+                clickDivInner() {
+                    console.log('click div inner')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

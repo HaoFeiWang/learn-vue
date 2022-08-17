@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <input type="text" placeholder="请输入关键字" v-model="inputKey" />
+        <ul>
+            <li v-for="person in filterPersonArray">{{person.name}} - {{person.age}}</li>
+        </ul>
+
+        <h2>使用计算属性实现</h2>
+        <ul>
+            <li v-for="person in computedPersonArray">{{person.name}} - {{person.age}}</li>
+        </ul>
+    </div>
+    <script>
+
+        new Vue({
+            el: '#root',
+            data: {
+                inputKey: "",
+                personArray: [
+                    { id: 1, name: "马冬梅", age: 29 },
+                    { id: 2, name: "周冬雨", age: 68 },
+                    { id: 3, name: "周杰伦", age: 32 },
+                    { id: 4, name: "孙伦", age: 42 },
+                ],
+                filterPersonArray: [
+
+                ]
+            },
+
+            //使用监听属性实现
+            watch: {
+                inputKey: {
+                    //初始化时调用
+                    immediate: true,
+                    handler(newValue) {
+                        console.log('inputKey = ', newValue)
+                        //空字符串会匹配所有
+                        this.filterPersonArray = this.personArray.filter((person) => {
+                            return person.name.indexOf(newValue) > -1
+                        })
+                    }
+                }
+            },
+
+            //使用计算属性实现
+            computed: {
+                computedPersonArray() {
+                    return this.personArray.filter((person) => {
+                        return person.name.indexOf(this.inputKey) > -1
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

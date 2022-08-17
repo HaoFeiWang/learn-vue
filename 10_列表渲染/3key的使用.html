@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>人员列表（遍历列表）</h1>
+
+        <button @click.once="addPerson">添加人员</button>
+        <br />
+
+        <ul>
+            <li v-for="(person,index) in personArray" :key="person.id">
+                {{person.name}} - {{person.age}}
+                <input type="text" />
+            </li>
+        </ul>
+
+
+        <h2>使用index作为列表的key</h2>
+        <ul>
+            <!-- 如果使用index作为key，在列表前面添加元素则会导致虚拟Dom对比错误，导致数据错乱-->
+            <li v-for="(person,index) in personArray" :key="index">
+                {{person.name}} - {{person.age}}
+                <input type="text" />
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                personArray: [
+                    { id: 001, name: "张三", age: 28 },
+                    { id: 002, name: "李四", age: 21 },
+                    { id: 003, name: "王五", age: 39 }
+                ],
+            },
+            methods: {
+                addPerson() {
+                    let person = { id: 4, name: '老刘', age: '72' }
+                    this.personArray.unshift(person)
+                }
+            },
+        })  
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #clickDiv {
+            background-color: cadetblue;
+            height: 50px;
+        }
+        *{
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="this.innerText = '文案已修改'">点击修改文案</button>
+    <br />
+
+    <button onclick="clickTip()">点击提示</button>
+    <br />
+
+    <button id="clickBtn">动态添加点击事件</button>
+    <br />
+
+    <a href="http://www.baidu.com" onclick="clickTip2()">点击提示，阻止默认事件</a>
+
+    <!-- 点击事件分为捕获、冒泡 -->
+    <!-- 捕获：从外向内分发事件 -->
+    <!-- 冒泡：从内向外执行onclick -->
+    <div id="clickDiv" onclick="clickDiv()">
+        <button onClick="clickDivInner()">点击按钮</button>
+    </div>
+
+    <script type="text/javascript">
+
+        function clickTip() {
+            //点击事件参数
+            console.log(event)
+            alert('点击了按钮')
+        }
+
+        function clickTip2() {
+            console.log(event)
+            //阻止链接点击会跳转的默认行为
+            event.preventDefault()
+            alert('点击了按钮')
+        }
+
+        function clickDiv() {
+            console.log('click div')
+        }
+
+        function clickDivInner() {
+            console.log('click div inner')
+            //阻止冒泡，事件不再由内向外传递
+            event.stopPropagation()
+        }
+
+        document.getElementById("clickBtn").addEventListener("click", clickTip)
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 原生实现：判断按键的keyCode -->
+        <input type="text" placeholder="按下回车打印信息" @keyup="inputEnter" />
+        <br />
+
+        <!-- vue按键别名：enter -->
+        <input type="text" placeholder="按下打印信息（enter别名）" @keyup.enter="inputAlias" />
+        <br />
+
+        <!--
+            其他别名
+            delete：退格/删除
+            esc：退出
+            space：空格
+            tab：换行，tab会导致焦点被切换到其他元素，所以需要配合keydown，不能使用keyup
+            up：上
+            down：下
+            left：左
+            right：右
+
+            系统特殊按键：
+            ctrl、alt、shift、meta 在 keyup 时需要配合其他按键，当释放其他按键触发
+         -->
+    </div>
+
+    <script>
+        //自定义别名，不推荐使用，因为每个键盘的keycode可能不一致
+        Vue.config.keyCodes.huiche = 13
+
+        const vm = new Vue({
+            el: "#root",
+            methods: {
+                inputEnter(event) {
+                    if (event.keyCode == 13) {
+                        console.log("input enter", event.target.value)
+                    }
+                },
+
+                inputAlias(event) {
+                    console.log("input alias ", event.target.value, event.key)
+                },
+
+            },
+        })
+    </script>
+</body>
+
+</html>
