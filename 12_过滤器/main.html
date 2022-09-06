@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <!-- moment.js库，用于时间处理 -->
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.4/locale/af.js"></script> -->
+    <!-- day.js库，轻量级时间处理，API同moment.js-->
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.11.5/dayjs.min.js"></script> -->
+    <script type="text/javascript" src="../js/day.min.js"></script>
+</head>
+
+<body>
+
+    <div id="root">
+        <!-- 过滤器 -->
+        <h1>现在是 {{time | timeFormater}}</h1>
+        <!-- 过滤器传参，前一个输出默认为过滤器的第一个参数 -->
+        <h1>现在是 {{time | timeFormater(YYYY-MM-DD)}}</h1>
+        <!-- 多个过滤器 -->
+        <h1>现在是 {{time | timeFormater(YYYY-MM-DD) | mySlice}}</h1>
+        <!-- 使用全局过滤器 -->
+        <h1>现在是 {{time | timeFormater(YYYY-MM-DD) | mySlice2}}</h1>
+    </div>
+
+    <script type="text/javascript">
+
+        //全局过滤器
+        Vue.filter('mySlice2', function (value) {
+            return value.slice(0, 7)
+        })
+
+        new Vue({
+            el: "#root",
+            data: {
+                time: 1621561377603
+            },
+            filters: {
+                timeFormater(value, formatStr = 'YYYY-MM-DD HH:mm:ss') {
+                    return dayjs(value).format(formatStr)
+                },
+                mySlice(value) {
+                    return value.slice(0, 4)
+                }
+            }
+        })
+    </script>
+
+</body>

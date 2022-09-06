@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <h1>模拟数据监测</h1>
+
+
+    <script type="text/javascript">
+        let person = {
+            name: "张三"
+        }
+
+        //读写过程都会栈溢出 [异常：RangeError: Maximum call stack size exceeded 
+        //因为读取age时，会触发get方法，get方法需要读取person.age，又会触发get方法，导致陷入递归循环，写同理
+        Object.defineProperty(person, 'age', {
+            get() {
+                return person.age
+            },
+            set(age) {
+                person.age = age
+            }
+        })
+
+
+        //模拟vue的实现
+        let data = {
+            name: "李四"
+        }
+        let observer = new Observer(person)
+        let vm = {}
+        vm._data = data = observer
+
+        //创建obj的动态代理对象
+        //相对于vue来说这个是个简单的实现原理，没有考虑到对象嵌套对象，没有将 name、age 等数据没有代理到vm中（需要通过_data访问）
+        function Observer(obj) {
+            let keys = Object.keys(obj)
+
+            keys.forEach((key) => {
+                Object.defineProperty(this, key, {
+                    get() {
+                        return obj[key]
+                    },
+                    set(value) {
+                        console.log(`${key}-${value} 数据被修改了，vue需要去解析模板，生成虚拟Dom`)
+                        obj[key] = value
+                    }
+                })
+            })
+        }
+    </script>
+</body>
+
+</html>

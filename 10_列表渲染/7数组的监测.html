@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>姓名：{{person.name}}</h1>
+        <h1>年龄：{{person.age}}</h1>
+        <h1>爱好</h1>
+        <ul>
+            <li v-for="hobby in person.hobbyArray">{{hobby}}</li>
+        </ul>
+
+        <button @click="changeToball">通过Array的方法修改第一个</button><br/>
+        <button @click="changeToball2">通过Vue.set修改第一个</button><br/>
+        <button @click="deleteSmoke">删除第一个</button>
+    </div>
+
+
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                person: {
+                    name: "张三",
+                    age: 18,
+                    //vm并不会给数组中第0个、第1个、第2个元素等生成数据代理，也就是demo4为什么修改数组0不会触发界面刷新
+                    //vm针对数组修改的方法进行了封装（先调用原生Array的方法，然后解析模板），必须调用修改数据的方法才能触发更新
+                    //push、pop、shift（删除头部）、unshift（增加头部）、splice（修改指定位置）、sort、reverse(反转数据)
+                    hobbyArray: ['抽烟', '喝酒', '烫头']
+                }
+            },
+            methods: {
+                changeToball() {
+                    this.person.hobbyArray.splice(0, 1, '篮球')
+                },
+                changeToball2() {
+                    Vue.set(this.person.hobbyArray, 0, '足球')
+                },
+                deleteSmoke() {
+                    this.person.hobbyArray.shift()
+                }
+            },
+        })  
+    </script>
+</body>
+
+</html>

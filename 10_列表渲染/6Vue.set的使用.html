@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>姓名：{{person.name}}</h1>
+        <h1>年龄：{{person.age}}</h1>
+
+        <!-- person.sex 是 undefine，所以不显示 -->
+        <!-- 如果直接修改vm增加 person.sex 并不会有数据代理，所以不会触发解析模板 （控制面板中 vm._data.person.sex = '男' ）-->
+        <!-- 必须通过 Vue.set(vm.person,'sex','女') 或 vm.$set(vm.person,'sex','女') 修改才可以-->
+        <h1 v-if="person.sex">性别：{{person.sex}}</h1>
+
+        <button @click="addSex">添加性别</button>
+    </div>
+
+
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                person: {
+                    name: "张三",
+                    age: 18
+                }
+            },
+            methods: {
+                addSex() {
+                    //只能给 data 中的某个对象中增加属性，不能直接给 data 增加属性
+                    //Vue.set(this.person,'sex','男')
+                    this.$set(this.person,'sex','男')
+                }
+            },
+        })  
+    </script>
+</body>
+
+</html>

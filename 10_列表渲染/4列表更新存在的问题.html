@@ -12,23 +12,31 @@
             <li v-for="(person,index) in personArray">{{person.name}} - {{person.age}} - {{index}}</li>
         </ul>
 
-        <button @click="updatePersonArray">更新列表</button>
+        <button @click="updateAgeForZs">更新张三年龄</button>
+
+        <button @click="updatePersonArray">更新列表中第一个元素</button>
     </div>
 
     <script type="text/javascript">
-        new Vue({
+        const vm = new Vue({
             el: '#root',
             data: {
                 personArray: [
                     { name: "张三", age: 28 },
                     { name: "李四", age: 21 },
                     { name: "王五", age: 39 }
-                ],
-                methods: {
-                    updatePersonArray() {
-                        this.personArray[0] = { name: "Jack", age: 18 }
-                    }
+                ]
+
+            },
+            methods: {
+                updateAgeForZs(){
+                    //更新数组中某个元素中的数据界面可以更新
+                    this.personArray[0].age = 30
                 },
+                updatePersonArray(event) {
+                    //更新数组中某个元素时界面并不会更新
+                    this.personArray[0] = { name: "Jack", age: 18 }
+                }
             }
         })  
     </script>
