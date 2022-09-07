@@ -1,47 +1,73 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script type="text/javascript" src="../js/vue.js"></script>
-    </head>
-    <body>
 
-        <!-- 
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <!-- 不显示包含该属性的元素 -->
+    <style>
+        [v-clock] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 
             Vue 模板语法有两大类
             插值语法：解析标签体
             指令语法：解析标签属性、标签内容、绑定事件等等，形式均为 v-xxx，例如 v-bind
         -->
 
-        <div id="root">
-            <!-- 插值语法 -->
-            <h1>{{title}}</h1>
+    <div id="root">
+        <!-- 插值语法 -->
+        <h1>{{title}}</h1>
 
-            <!-- 增加v-bind后，双引号中会解析为js表达式 -->
-            <a v-bind:href="url">点击跳转百度</a>
-            <br/>
+        <!-- 增加v-bind后，双引号中会解析为js表达式 -->
+        <a v-bind:href="url">点击跳转百度</a>
+        <br />
 
-            <!-- :冒号为 v-bind 的简写 -->
-            <a :href="url">点击跳转百度</a>
-            <br/>
+        <!-- :冒号为 v-bind 的简写 -->
+        <a :href="url">点击跳转百度</a>
+        <br />
 
-            <!--解析js表达式-->
-            <a :href="url.toUpperCase()">点击跳转百度</a>
-            <br/>
+        <!--解析js表达式-->
+        <a :href="url.toUpperCase()">点击跳转百度</a>
+        <br />
 
-            <!--解析对象-->
-            <a :href="school.url">点击跳转百度</a>
-        </div>
+        <!--解析对象-->
+        <a :href="school.url">点击跳转百度</a>
 
-        <script>
-            new Vue({
-                el:"#root",
-                data:{
-                    title:"模板语法",
-                    url:"http://www.baidu.com",
-                    school:{
-                        url:"http://www.baidu.com"
-                    }
+        <!-- 指令语法替换innerHtml -->
+        <h1 v-text="title">指令语法</h1>
+
+        <!-- 指令语法，解析html -->
+        <div v-html="subTitle"></div>
+
+        <!--Vue接管容器后会删除v-clock属性，为了解决js加载太慢导致页面加载慢的问题-->
+        <!--使用css-->
+        <h1 v-clock>{{title}}</h1>
+
+        <!-- 在初次静态渲染后就变为静态内容，以后数据的改变不会更新，用于性能优化 -->
+        <h1 v-once>{{title}}</h1>
+
+        <!-- Vue会跳过该节点的解析 -->
+        <h1 v-pre>{{title}}</h1>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data: {
+                title: "模板语法",
+                subTitle: "<h3>副标题</h3>",
+                url: "http://www.baidu.com",
+                school: {
+                    url: "http://www.baidu.com"
                 }
-            })
-        </script>
-    </body>
+            }
+        })
+    </script>
+</body>
+
 </html>

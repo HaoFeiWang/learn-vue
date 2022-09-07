@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>当前n的值是：{{n}}</h2>
+        <h2>放大10倍后的n值是：<span v-big="n"></span> </h2>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data: {
+                n: 1
+            },
+            directives: {
+                //调用时机：1.指令与元素成功绑定时（初始化） 2.指令所在模板被重新解析时
+                big(element, binding) {
+                    //element是真实Dom
+                    //binding是指令信息
+                    console.log(element, binding)
+                    element.innerText = binding.value * 10
+                }
+            }
+        })
+    </script>
+</body>

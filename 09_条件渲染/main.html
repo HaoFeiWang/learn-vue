@@ -10,7 +10,7 @@
         <button @click="addValue">增加Number</button>
         <!-- v-if 是条件渲染，Dom节点中不会存在不符合条件的 -->
         <h1 v-if="number === 1">v-if测试</h1>
-        <!-- v-if 是条件显示，Dom节点中始终存在，只是通过display属性进行隐藏 -->
+        <!-- v-show 是条件显示，Dom节点中始终存在，只是通过display属性进行隐藏 -->
         <h1 v-show="number === 1">v-show测试</h1>
 
         <!-- if else-if else，中间不能被其他标签打断-->
