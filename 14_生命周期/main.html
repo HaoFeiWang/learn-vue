@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>当前n的值是：{{n}}</h2>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data: {
+                n: 1
+            },
+            //这个时候this还不能使用，data中的数据、methods中的方法，以及watcher中的事件都不能获得
+            beforeCreate() {
+                console.log("beforeCreate")
+            },
+            //这个时候可以操作vue中的数据和方法，但是还不能对dom节点进行操作
+            created() {
+                console.log("created")
+            },
+            //$el属性已存在，是虚拟dom，只是数据未挂载到模板中
+            beforeMount() {
+                console.log("beforeMount")
+            },
+            //挂载完毕，这时dom节点被渲染到文档内，dom操作在此时能正常进行
+            mounted() {
+                console.log("mounted")
+            },
+            beforeUpdate() {
+                console.log("beforeUpdate")
+            },
+            updated() {
+                console.log("updated")
+            },
+            //实例销毁之前调用
+            beforeDestroy() {
+                console.log("beforeDestroy")
+            },
+            //执行destroy方法后，对data的改变不会再触发周期函数
+            destroyed() {
+                console.log("destroyed")
+            }
+        })
+    </script>
+</body>

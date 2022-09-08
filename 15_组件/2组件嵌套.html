@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <school></school>
+    </div>
+
+    <script>
+
+        const student = Vue.extend({
+            template: `
+                <div>
+                    <h2>学生姓名：{{studentName}}</h2>
+                    <h2>学生地址：{{address}}</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    studentName: "张三",
+                    address: "北京"
+                }
+            }
+        })
+
+        const school = Vue.extend({
+            template: `
+                <div>
+                    <h2>学校名称：{{schoolName}}</h2>
+                    <h2>学校地址：{{address}}</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    schoolName: "清华大学",
+                    address: "北京"
+                }
+            },
+            //组件嵌套
+            components: {
+                student
+            }
+        })
+
+        new Vue({
+            el: "#root",
+            components: {
+                //JS语法，相当于student:student，key和value同名只需要写一个
+                school
+            }
+        })
+    </script>
+</body>
