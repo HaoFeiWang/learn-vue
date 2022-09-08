@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <schoolview></schoolview>
+        <student-view></student-view>
+    </div>
+
+    <!-- 
+        组件注意点：
+        1. 一个单词时纯小写（school）、首字母都可以（Scholl）
+        2. 多个单词组成时，全部使用小写中间用短横线隔开（my-scholl），或者单词首字母大写（MyScholl）（需要用脚手架）
+
+
+    -->
+
+    <script>
+
+        //定义组件
+        //组件定义不要写el配置项，data配置项需要写成函数
+        const school = Vue.extend({
+            //指定组件使用名称，如果不指定则为注册时的名字
+            //name:"my-scholl",
+            template: `
+                <div>
+                    <h2>学校名称：{{schoolName}}</h2>
+                    <h2>学校地址：{{address}}</h2>
+                    <button @click="showSchoolName">点我提示学校名</button>
+                </div>
+            `,
+            data() {
+                return {
+                    schoolName: "清华大学",
+                    address: "北京"
+                }
+            },
+            methods: {
+                showSchoolName(){
+                    alert(this.schoolName)
+                }
+            },
+        })
+
+        const student = Vue.extend({
+            template: `
+                <div>
+                    <h2>学生姓名：{{studentName}}</h2>
+                    <h2>学生地址：{{address}}</h2>
+                    <button @click="showSchoolName">点我提示学生名</button>
+                </div>
+            `,
+            data() {
+                return {
+                    studentName: "张三",
+                    address: "北京"
+                }
+            },
+            methods: {
+                showSchoolName(){
+                    alert(this.studentName)
+                }
+            },
+        })
+
+        //全局注册
+        Vue.component("student-view",student)
+
+        new Vue({
+            el: "#root",
+            //局部注册组件
+            components: {
+                //组件名称不能有大写字母
+                schoolview: school
+            }
+        })
+    </script>
+</body>
