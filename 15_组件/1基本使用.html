@@ -14,8 +14,13 @@
         组件注意点：
         1. 一个单词时纯小写（school）、首字母都可以（Scholl）
         2. 多个单词组成时，全部使用小写中间用短横线隔开（my-scholl），或者单词首字母大写（MyScholl）（需要用脚手架）
-
-
+        3. 组件本质就是new VueComponent，其是由 Vue.extend 生成的
+        4. 只需要写组件标签，例如<school> </school>，Vue解析时会创建school组件的实例对象，即调用new VueComponent(options)
+        5. 每次调用 Vue.extend ，都会返回一个全新的 VueComponet
+        6. 组件中data、method、watch、computed中的函数的this指向VueComponent
+        7. VueComponent 的实例对象简称为 vc
+        8. VueComponent 的配置对象中不能有 el 属性
+        9. VueComponent.prototype.__proto__ === Vue.prototype（VueComponet继承自Vue）
     -->
 
     <script>
