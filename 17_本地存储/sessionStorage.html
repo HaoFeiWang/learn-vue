@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+
+<!-- sessionStorage会在浏览器关闭时自动清空 -->
+<body>
+    <button onclick="saveSession()">保存</button>
+    <button onclick="loadSession()">读取</button>
+    <button onclick="deleteSession()">删除</button>
+    <button onclick="clearSession()">清空</button>
+
+    <script type="text/javascript">
+
+        let jack = {
+            age:18,
+            name:'Jack'
+        }
+
+        function saveSession(){
+            sessionStorage.setItem("one","hello")
+            sessionStorage.setItem("person",JSON.stringify(jack))
+        }
+
+        function loadSession(){
+            console.log(sessionStorage.getItem("one"))
+            console.log(sessionStorage.getItem("person"))
+        }
+
+        function deleteSession(){
+            sessionStorage.removeItem("one")
+        }
+
+        function clearSession(){
+            sessionStorage.clear()
+        }
+    </script>
+</body>

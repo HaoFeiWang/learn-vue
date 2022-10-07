@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+
+<!-- localStorage会在清除浏览器数据时被清除 -->
+<body>
+    <button onclick="saveLocal()">保存</button>
+    <button onclick="loadLocal()">读取</button>
+    <button onclick="deleteLocal()">删除</button>
+    <button onclick="clearLocal()">清空</button>
+
+    <script type="text/javascript">
+
+        let jack = {
+            age:18,
+            name:'Jack'
+        }
+
+        function saveLocal(){
+            localStorage.setItem("one","hello")
+            localStorage.setItem("person",JSON.stringify(jack))
+        }
+
+        function loadLocal(){
+            console.log(localStorage.getItem("one"))
+            console.log(localStorage.getItem("person"))
+        }
+
+        function deleteLocal(){
+            localStorage.removeItem("one")
+        }
+
+        function clearLocal(){
+            localStorage.clear()
+        }
+    </script>
+</body>

@@ -21,9 +21,13 @@ import App from './App.vue'
 import plugin from './plugin'
 Vue.use(plugin)
 
+//导入store/index.js，如果没有写文件名，导入时自动寻找index.js
+//import Vue.use 后面，但是实际编译完成后，会将所有import都前置在最前面
+import store from './store'
+
 Vue.config.productionTip = false
 
-new Vue({
+const vm = new Vue({
   //将App组件放入容器中
   //render: h => h(App),
   
@@ -31,11 +35,21 @@ new Vue({
   //因为引入的Vue缺少模板解析器，所以需要通过render创建元素
   render(createElement){
     return createElement(App)
-  }
+  },
 
   //因为引入的 Vue 缺少模板解析器，所以不支持template
   //因为编译完成后，Vue文件中的模板已经被 webpack 编译为了 html、css、js等，所以实际运行不需要模板解析器，可以减少打包体积
   //Vue文件编译过程采用的模板解析器为 vue-template-compiler
-  //,template:`<h1>你好呀</h1>`
+  //template:`<h1>你好呀</h1>`
+
+  beforeCreate(){
+    //安装全局事件总线
+    //因为 VueComponent.prototype._proto_ === Vue.prototype，所以任意组件都可以访问到 $bus 
+    //因为 Vue 拥有 $on $emit 相关方法，所以赋值为 this
+    Vue.prototype.$bus = this
+  },
+
+  //使用Vuex的Store
+  store:store
 
 }).$mount('#app')
